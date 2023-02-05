@@ -11,6 +11,9 @@ object Constantes {
     val TIPO_EMPLEADO = "EMPLEADO"
     val TIPO_ENTRENADOR = "ENTRENADOR"
 
+    // Default messages
+    val HEADER_ERROR_MESSAGE = "errorMessage"
+
     // default tests
     val EMPRESA_EJEMPLO_1 = Empresa(
         id = 1,

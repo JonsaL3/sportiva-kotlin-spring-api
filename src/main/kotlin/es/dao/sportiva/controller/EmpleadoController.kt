@@ -15,22 +15,4 @@ class EmpleadoController {
     @Autowired
     lateinit var service: IEmpleadoService
 
-    @GetMapping("/findall")
-    fun findAll(): ResponseEntity<List<Empleado>> {
-        val empleado = service.findAll()
-        return ResponseEntity.ok(empleado)
-    }
-
-    @GetMapping("/cargarPrueba")
-    fun cargarPrueba(): ResponseEntity<String> {
-        try {
-            service.insert(
-                Empleado()
-            )
-        } catch (e: Exception) {
-            return ResponseEntity.badRequest().body(e.message)
-        }
-        return ResponseEntity.ok("Datos cargados correctamente")
-    }
-
 }

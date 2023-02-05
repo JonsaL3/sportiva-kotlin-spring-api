@@ -15,22 +15,4 @@ class EmpresaController {
     @Autowired
     lateinit var service: IEmpresaService
 
-    @GetMapping("/findall")
-    fun findAll(): ResponseEntity<List<Empresa>> {
-        val empresa = service.findAll()
-        return ResponseEntity.ok(empresa)
-    }
-
-    @GetMapping("/cargarPrueba")
-    fun cargarPrueba(): ResponseEntity<String> {
-        try {
-            service.insert(
-                Empresa()
-            )
-        } catch (e: Exception) {
-            return ResponseEntity.badRequest().body(e.message)
-        }
-        return ResponseEntity.ok("Datos cargados correctamente")
-    }
-
 }

@@ -10,4 +10,5 @@ interface ISesionService {
     fun findById(id: Int): Sesion?
     fun findSesionesDisponibles(idEmpresa: Int): List<Sesion>?
     fun findSesionesDisponiblesByEntrenador(idEntrenador: Int): List<Sesion>?
+
 }

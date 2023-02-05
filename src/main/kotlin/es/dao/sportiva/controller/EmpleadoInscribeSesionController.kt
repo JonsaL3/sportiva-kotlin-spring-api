@@ -7,7 +7,9 @@ import es.dao.sportiva.service.IEmpleadoInscribeSesionService
 import es.dao.sportiva.service.IEmpleadoService
 import es.dao.sportiva.service.ISesionService
 import es.dao.sportiva.utils.Constantes
+import es.dao.sportiva.utils.Constantes.HEADER_ERROR_MESSAGE
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -49,7 +51,9 @@ class EmpleadoInscribeSesionController {
         val sesiones = service.findBySesion(sesionId)
         println("--->" + sesiones.toString())
         val response = if (sesiones.isNullOrEmpty()) {
-            ResponseEntity.notFound().build()
+            val headers = HttpHeaders()
+            headers.add(HEADER_ERROR_MESSAGE, "Todavía nadie se ha inscrito a esa sesión o la sesión no existe.")
+            ResponseEntity.notFound().headers(headers).build()
         } else {
             ResponseEntity.ok(sesiones)
         }

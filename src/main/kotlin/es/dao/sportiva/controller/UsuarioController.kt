@@ -11,7 +11,9 @@ import es.dao.sportiva.serialization_utils.LocalDateTimeTypeAdapter
 import es.dao.sportiva.service.IEmpleadoService
 import es.dao.sportiva.service.IEntrenadorService
 import es.dao.sportiva.utils.Constantes
+import es.dao.sportiva.utils.Constantes.HEADER_ERROR_MESSAGE
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
@@ -47,7 +49,9 @@ class UsuarioController {
                 iniciarSesionResponse.json = GsonBuilder().registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeAdapter()).create().toJson(empleado)
                 return ResponseEntity.ok(iniciarSesionResponse)
             } else { // return bad request with error message
-                return ResponseEntity.badRequest().build()
+                val headers = HttpHeaders()
+                headers.add(HEADER_ERROR_MESSAGE, "No existe ningún usuario con esas creedenciales.")
+                return ResponseEntity.badRequest().headers(headers).build()
             }
         } ?: run {
             usuario = serviceEntrenador.findByCorreo(request.correo)
@@ -58,10 +62,14 @@ class UsuarioController {
                     iniciarSesionResponse.json = GsonBuilder().registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeAdapter()).create().toJson(entrenador)
                     return ResponseEntity.ok(iniciarSesionResponse)
                 } else {
-                    return ResponseEntity.badRequest().build()
+                    val headers = HttpHeaders()
+                    headers.add(HEADER_ERROR_MESSAGE, "No existe ningún usuario con esas creedenciales.")
+                    return ResponseEntity.badRequest().headers(headers).build()
                 }
             } ?: run {
-                return ResponseEntity.notFound().build()
+                val headers = HttpHeaders()
+                headers.add(HEADER_ERROR_MESSAGE, "No existe ningún usuario con esas creedenciales.")
+                return ResponseEntity.badRequest().headers(headers).build()
             }
 
         }
