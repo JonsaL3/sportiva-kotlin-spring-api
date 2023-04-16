@@ -18,7 +18,7 @@ data class EmpleadoParticipaSesion (
 
     @ManyToOne
     @JoinColumn(name = "ID_SESION")
-    var fechaALaQueParticipa: Sesion = Sesion(),
+    var sesionEnLaQueParticipa: Sesion = Sesion(),
 
     var fechaParticipacion: LocalDateTime = Constantes.DEFAULT_DATE,
 

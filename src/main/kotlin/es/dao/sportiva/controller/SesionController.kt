@@ -22,6 +22,24 @@ class SesionController {
         service.insert(Constantes.SESION_EJEMPLO_3)
     }
 
+    @GetMapping("/findAll")
+    fun findAll(): ResponseEntity<List<Sesion>> {
+
+        // TODO BORRAR
+        cargarSesionesPrueba()
+
+        val sesiones = service.findAll()
+        val response = if (sesiones.isNullOrEmpty()) {
+            val headers = HttpHeaders()
+            headers.add(HEADER_ERROR_MESSAGE, "No existe ninguna sesión en la base de datos.")
+            ResponseEntity.notFound().headers(headers).build()
+        } else {
+            ResponseEntity.ok(sesiones)
+        }
+
+        return response
+    }
+
     @GetMapping("/findSesionesDisponibles/{empresaId}")
     fun findSesionesDisponibles(@PathVariable("empresaId") empresaId: Int): ResponseEntity<List<Sesion>> {
 
@@ -60,6 +78,15 @@ class SesionController {
 
     @PostMapping("/crearSesion")
     fun crearSesion(@RequestBody sesion: Sesion) : ResponseEntity<Sesion> {
+
+        // Por como funciona springboot, antes debo de comprobar si la empresa del creador coincide con la empresa
+        // de la sesión que se quiere crear (siempre va a ser asi, pero en un futuro el entrenador podría pertenecer a otra empresa)
+        // por eso es interesante conservar la many to one de empresa en sesión
+        if (sesion.creador.empresaAsignada.id == sesion.empresa?.id) {
+            // Igualo las instancias para que spring sea capaz de realizar la inserción correctamente
+            sesion.creador.empresaAsignada = sesion.empresa!!
+        }
+
         return if (service.insert(sesion)) {
             ResponseEntity.ok(sesion)
         } else {
