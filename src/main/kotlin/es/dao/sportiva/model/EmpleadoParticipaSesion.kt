@@ -22,4 +22,4 @@ data class EmpleadoParticipaSesion (
 
     var fechaParticipacion: LocalDateTime = Constantes.DEFAULT_DATE,
 
-    ) : Serializable
+) : Serializable

@@ -19,6 +19,7 @@ data class Sesion(
     var fechaInserccion: LocalDateTime = Constantes.DEFAULT_DATE,
     var fechaSesion: LocalDateTime = Constantes.DEFAULT_DATE,
     var aforoMaximo: Int = -1,
+    var isLlevadaACabo: Boolean = false,
 
     @Column(columnDefinition = "nvarchar(max)")
     var imagen: String? = "",

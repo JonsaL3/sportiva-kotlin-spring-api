@@ -6,6 +6,7 @@ import es.dao.sportiva.model.Empresa
 
 interface IEmpleadoParticipaSesionService {
     fun insert(objeto: EmpleadoParticipaSesion): Boolean
+    fun saveAll(objeto: List<EmpleadoParticipaSesion>): Boolean
     fun update(objeto: EmpleadoParticipaSesion): Boolean
     fun delete(id: Int): Boolean
     fun findAll(): List<EmpleadoParticipaSesion>?

@@ -91,7 +91,10 @@ class SesionController {
             ResponseEntity.ok(sesion)
         } else {
             val headers = HttpHeaders()
-            headers.add(HEADER_ERROR_MESSAGE, "Error al crear la sesión. Comprueba los datos introducidos. Si el problema persiste contacte con el administrador.")
+            headers.add(
+                HEADER_ERROR_MESSAGE,
+                "Error al crear la sesión. Comprueba los datos introducidos. Si el problema persiste contacte con el administrador."
+            )
             ResponseEntity.badRequest().headers(headers).build()
         }
     }

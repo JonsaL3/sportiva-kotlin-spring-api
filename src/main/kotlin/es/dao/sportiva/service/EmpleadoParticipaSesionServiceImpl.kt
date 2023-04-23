@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 class EmpleadoParticipaSesionServiceImpl: IEmpleadoParticipaSesionService {
 
     @Autowired lateinit var repo: EmpleadoParticipaSesionRepository
+    @Autowired lateinit var sesionService: ISesionService
 
     override fun insert(objeto: EmpleadoParticipaSesion): Boolean {
         var exito = false
@@ -16,9 +17,22 @@ class EmpleadoParticipaSesionServiceImpl: IEmpleadoParticipaSesionService {
             repo.save(objeto)
             exito = true
         } catch (e: Exception) {
-            println("Error al insertar entrenador: ${e.message}")
+            println("Error al insertar empleadoParticipaSesion: ${e.message}")
         }
         return exito
+    }
+
+    override fun saveAll(objeto: List<EmpleadoParticipaSesion>): Boolean {
+        var exito = false
+        try {
+            repo.saveAll(objeto)
+            // Una vez insertadas las participaciones actualizo la sesión
+            sesionService.update(objeto[0].sesionEnLaQueParticipa)
+            exito = true
+        } catch (e: Exception) {
+            println("Error al insertar empleadoParticipaSesion y actualizar la sesion: ${e.message}")
+        }
+        return exito // TODO PUTA MIERDA CANCERIGENA AL INSERTAR EMPLEADO PARTICIPA WITH SESIONES WITH EMPRESA.
     }
 
     override fun update(objeto: EmpleadoParticipaSesion): Boolean {
@@ -27,7 +41,7 @@ class EmpleadoParticipaSesionServiceImpl: IEmpleadoParticipaSesionService {
             repo.save(objeto)
             exito = true
         } catch (e: Exception) {
-            println("Error al actualizar entrenador: ${e.message}")
+            println("Error al actualizar empleadoParticipaSesion: ${e.message}")
         }
         return exito
     }
@@ -38,7 +52,7 @@ class EmpleadoParticipaSesionServiceImpl: IEmpleadoParticipaSesionService {
             repo.deleteById(id)
             exito = true
         } catch (e: Exception) {
-            println("Error al borrar entrenador: ${e.message}")
+            println("Error al borrar empleadoParticipaSesion: ${e.message}")
         }
         return exito
     }
