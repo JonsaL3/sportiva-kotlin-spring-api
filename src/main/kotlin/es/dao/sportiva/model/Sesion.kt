@@ -21,7 +21,7 @@ data class Sesion(
     var aforoMaximo: Int = -1,
     var isLlevadaACabo: Boolean = false,
 
-    @Column(columnDefinition = "nvarchar(max)")
+    @Column(columnDefinition = "LONGBLOB")
     var imagen: String? = "",
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)

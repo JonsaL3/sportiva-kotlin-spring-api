@@ -2,7 +2,6 @@ package es.dao.sportiva.controller
 
 import es.dao.sportiva.model.Sesion
 import es.dao.sportiva.service.ISesionService
-import es.dao.sportiva.utils.Constantes
 import es.dao.sportiva.utils.Constantes.HEADER_ERROR_MESSAGE
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
@@ -16,17 +15,8 @@ class SesionController {
     @Autowired
     lateinit var service: ISesionService
 
-    private fun cargarSesionesPrueba() {
-        service.insert(Constantes.SESION_EJEMPLO_1)
-        service.insert(Constantes.SESION_EJEMPLO_2)
-        service.insert(Constantes.SESION_EJEMPLO_3)
-    }
-
     @GetMapping("/findAll")
     fun findAll(): ResponseEntity<List<Sesion>> {
-
-        // TODO BORRAR
-        cargarSesionesPrueba()
 
         val sesiones = service.findAll()
         val response = if (sesiones.isNullOrEmpty()) {
@@ -43,9 +33,6 @@ class SesionController {
     @GetMapping("/findSesionesDisponibles/{empresaId}")
     fun findSesionesDisponibles(@PathVariable("empresaId") empresaId: Int): ResponseEntity<List<Sesion>> {
 
-        // TODO BORRAR
-        cargarSesionesPrueba()
-
         val sesiones = service.findSesionesDisponibles(empresaId)
         val response = if (sesiones.isNullOrEmpty()) {
             val headers = HttpHeaders()
@@ -60,9 +47,6 @@ class SesionController {
 
     @GetMapping("/findSesionesDisponiblesByEntrenador/{entrenadorId}")
     fun findSesionesDisponiblesByEntrenador(@PathVariable("entrenadorId") entrenadorId: Int): ResponseEntity<List<Sesion>> {
-
-        // TODO BORRAR
-        cargarSesionesPrueba()
 
         val sesiones = service.findSesionesDisponiblesByEntrenador(entrenadorId)
         val response = if (sesiones.isNullOrEmpty()) {

@@ -3,7 +3,6 @@ package es.dao.sportiva.controller
 import es.dao.sportiva.model.EmpleadoParticipaSesion
 import es.dao.sportiva.requests.ComenzarSesionRequest
 import es.dao.sportiva.service.IEmpleadoParticipaSesionService
-import es.dao.sportiva.service.ISesionService
 import es.dao.sportiva.utils.Constantes
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.lang.IndexOutOfBoundsException
 import java.time.LocalDateTime
 
 @RestController
@@ -21,9 +19,6 @@ class EmpleadoParticipaSesionController {
 
     @Autowired
     lateinit var service: IEmpleadoParticipaSesionService
-
-    @Autowired
-    lateinit var serviceSesion: ISesionService
 
     @PostMapping("/comenzarSesion")
     fun comenzarSesion(@RequestBody comenzarSesionRequest: ComenzarSesionRequest): ResponseEntity<List<EmpleadoParticipaSesion>> {

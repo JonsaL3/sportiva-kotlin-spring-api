@@ -10,7 +10,7 @@ import javax.persistence.*
 abstract class Usuario(
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     open var id: Int = -1,
 
     @Column(unique = true)
