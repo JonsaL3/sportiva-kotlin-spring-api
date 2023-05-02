@@ -6,5 +6,4 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface EmpleadoParticipaSesionRepository : CrudRepository<EmpleadoParticipaSesion, Int> {
-}
+interface EmpleadoParticipaSesionRepository : CrudRepository<EmpleadoParticipaSesion, Int>

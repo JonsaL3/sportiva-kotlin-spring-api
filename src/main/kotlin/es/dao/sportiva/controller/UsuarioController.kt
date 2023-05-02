@@ -1,9 +1,6 @@
 package es.dao.sportiva.controller
 
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import es.dao.sportiva.model.Empleado
-import es.dao.sportiva.model.Entrenador
 import es.dao.sportiva.model.Usuario
 import es.dao.sportiva.requests.IniciarSesionRequest
 import es.dao.sportiva.responses.IniciarSesionResponse
@@ -16,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @RestController
@@ -29,16 +25,14 @@ class UsuarioController {
     @Autowired
     lateinit var serviceEntrenador: IEntrenadorService
 
-    private fun cargarUsuariosPrueba() {
+    @GetMapping("/cargarUsuariosPrueba")
+    fun cargarUsuariosPrueba() {
         serviceEmpleado.insert(Constantes.EMPLEADO_EJEMPLO_1)
         serviceEntrenador.insert(Constantes.ENTRENADOR_EJEMPLO_1)
     }
 
     @PostMapping("/iniciarSesion")
     fun iniciarSesion(@RequestBody request: IniciarSesionRequest): ResponseEntity<IniciarSesionResponse> {
-
-        // TODO BORRAR
-        cargarUsuariosPrueba()
 
         var usuario: Usuario? = serviceEmpleado.findByCorreo(request.correo)
         val iniciarSesionResponse = IniciarSesionResponse()

@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 data class Sesion(
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = -1,
     var titulo: String = "",
     var subtitulo: String = "",
@@ -19,6 +19,9 @@ data class Sesion(
     var fechaInserccion: LocalDateTime = Constantes.DEFAULT_DATE,
     var fechaSesion: LocalDateTime = Constantes.DEFAULT_DATE,
     var aforoMaximo: Int = -1,
+    var isLlevadaACabo: Boolean = false,
+
+    @Column(columnDefinition = "LONGBLOB")
     var imagen: String? = "",
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
