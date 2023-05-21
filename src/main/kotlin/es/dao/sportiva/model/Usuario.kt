@@ -23,6 +23,8 @@ abstract class Usuario(
     open var fechaNacimiento: LocalDateTime = Constantes.DEFAULT_DATE,
     open var fechaInserccion: LocalDateTime? = Constantes.DEFAULT_DATE,
     open var isActivo: Boolean = false,
+
+    @Column(columnDefinition = "LONGBLOB")
     open var imagen: String? = null
 
 ) : Serializable {

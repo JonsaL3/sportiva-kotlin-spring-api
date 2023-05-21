@@ -26,9 +26,20 @@ class UsuarioController {
     lateinit var serviceEntrenador: IEntrenadorService
 
     @GetMapping("/cargarUsuariosPrueba")
-    fun cargarUsuariosPrueba() {
-        serviceEmpleado.insert(Constantes.EMPLEADO_EJEMPLO_1)
-        serviceEntrenador.insert(Constantes.ENTRENADOR_EJEMPLO_1)
+    fun cargarUsuariosPrueba() : ResponseEntity<String>{
+
+        return if (
+            serviceEmpleado.insert(Constantes.EMPLEADO_EJEMPLO_1) &&
+            serviceEmpleado.insert(Constantes.EMPLEADO_EJEMPLO_2) &&
+            serviceEntrenador.insert(Constantes.ENTRENADOR_EJEMPLO_1) &&
+            serviceEntrenador.insert(Constantes.ENTRENADOR_EJEMPLO_2) &&
+            serviceEntrenador.insert(Constantes.ENTRENADOR_EJEMPLO_3)
+        ) {
+            ResponseEntity.ok("Empleados y entrenadores de prueba insertados correctamente.")
+        } else {
+            ResponseEntity.badRequest().build()
+        }
+
     }
 
     @PostMapping("/iniciarSesion")

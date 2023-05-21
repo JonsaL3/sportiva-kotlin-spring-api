@@ -12,7 +12,7 @@ interface EntrenadorRepository : CrudRepository<Entrenador, Int> {
 
     fun findByCorreo(correo: String): Entrenador
 
-    @Query("SELECT e FROM Entrenador e WHERE e.empresaAsignada.id = ?1 AND e.isActivo = true")
+    @Query("SELECT e FROM Entrenador e WHERE e.empresaAsignada.id = ?1 AND e.isActivo = 1")
     fun findByIdEmpresaAsignada(idEmpresa: Int): List<Entrenador>
 
 }

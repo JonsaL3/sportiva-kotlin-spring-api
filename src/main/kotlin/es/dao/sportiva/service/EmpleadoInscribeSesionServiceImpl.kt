@@ -1,6 +1,8 @@
 package es.dao.sportiva.service
 
+import es.dao.sportiva.model.Empleado
 import es.dao.sportiva.model.EmpleadoInscribeSesion
+import es.dao.sportiva.model.Sesion
 import es.dao.sportiva.repository.EmpleadoInscribeSesionRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -53,6 +55,10 @@ class EmpleadoInscribeSesionServiceImpl: IEmpleadoInscribeSesionService {
 
     override fun findBySesion(id: Int): List<EmpleadoInscribeSesion>? {
         return repo.findBySesion(id)
+    }
+
+    override fun existsInscripcionByEmpleadoInscritoAndSesionALaQueSeInscribe(empleado: Empleado, sesion: Sesion): Boolean {
+        return repo.existsInscripcionByEmpleadoInscritoAndSesionALaQueSeInscribe(empleado, sesion)
     }
 
 }

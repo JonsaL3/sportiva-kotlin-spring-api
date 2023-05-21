@@ -1,6 +1,7 @@
 package es.dao.sportiva.controller
 
 import es.dao.sportiva.model.Sesion
+import es.dao.sportiva.service.IEmpleadoInscribeSesionService
 import es.dao.sportiva.service.ISesionService
 import es.dao.sportiva.utils.Constantes.HEADER_ERROR_MESSAGE
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +15,9 @@ class SesionController {
 
     @Autowired
     lateinit var service: ISesionService
+
+    @Autowired
+    lateinit var serviceEmpleadoInscribeSesion: IEmpleadoInscribeSesionService
 
     @GetMapping("/findAll")
     fun findAll(): ResponseEntity<List<Sesion>> {
@@ -30,8 +34,11 @@ class SesionController {
         return response
     }
 
-    @GetMapping("/findSesionesDisponibles/{empresaId}")
-    fun findSesionesDisponibles(@PathVariable("empresaId") empresaId: Int): ResponseEntity<List<Sesion>> {
+    @GetMapping("/findSesionesDisponibles/{empresaId}/{empleadoId}")
+    fun findSesionesDisponibles(
+        @PathVariable("empresaId") empresaId: Int,
+        @PathVariable("empleadoId") empleadoId: Int
+    ) : ResponseEntity<List<Sesion>> {
 
         val sesiones = service.findSesionesDisponibles(empresaId)
         val response = if (sesiones.isNullOrEmpty()) {
@@ -39,6 +46,19 @@ class SesionController {
             headers.add(HEADER_ERROR_MESSAGE, "Aún no hay sesiones programadas para hoy en tu empresa.")
             ResponseEntity.notFound().headers(headers).build()
         } else {
+
+            // Compruebo si está inscrito el empleado
+            sesiones.forEach { sesion ->
+                sesion.isCurrentEmpleadoInscrito = serviceEmpleadoInscribeSesion.findBySesion(sesion.id)?.any { it.empleadoInscrito.id == empleadoId } ?: false
+            }
+
+            // calculo la cantidad de gente que está inscrita a cada sesión
+            sesiones.forEach { sesion ->
+                val inscritos = serviceEmpleadoInscribeSesion.findBySesion(sesion.id)?.count() ?: 0
+                sesion.numeroDeInscripciones = inscritos
+                print(";;; -> inscritos: $inscritos")
+            }
+
             ResponseEntity.ok(sesiones)
         }
 
@@ -49,12 +69,18 @@ class SesionController {
     fun findSesionesDisponiblesByEntrenador(@PathVariable("entrenadorId") entrenadorId: Int): ResponseEntity<List<Sesion>> {
 
         val sesiones = service.findSesionesDisponiblesByEntrenador(entrenadorId)
+
+        // no necesito las imágenes de los entrenadores, por eso las pongo a null
+        sesiones?.flatMap { it.entrenadores }?.forEach { it.imagen = null }
+        sesiones?.forEach { it.creador.imagen = null }
+
         val response = if (sesiones.isNullOrEmpty()) {
             val headers = HttpHeaders()
             headers.add(HEADER_ERROR_MESSAGE, "Aún no has creado ninguna sesión para hoy.")
             ResponseEntity.notFound().headers(headers).build()
         } else {
-            ResponseEntity.ok(sesiones)
+            sesiones.forEach { it.imagen = null }
+            ResponseEntity.ok(sesiones) // no necesito enviar las imagenes aqui, podriá afinar la consulta en el repo pero que pereza.
         }
 
         return response
@@ -69,6 +95,16 @@ class SesionController {
         if (sesion.creador.empresaAsignada.id == sesion.empresa?.id) {
             // Igualo las instancias para que spring sea capaz de realizar la inserción correctamente
             sesion.creador.empresaAsignada = sesion.empresa!!
+        }
+
+        sesion.creador.isActivo = true
+
+        // Lo mismo con las empresas de los entrenadores participantes
+        sesion.entrenadores.forEach {
+            if (it.empresaAsignada.id == sesion.empresa?.id) {
+                it.empresaAsignada = sesion.empresa!!
+                it.isActivo = true
+            }
         }
 
         return if (service.insert(sesion)) {

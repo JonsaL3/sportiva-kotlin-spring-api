@@ -11,6 +11,8 @@ object Constantes {
     val TIPO_EMPLEADO = "EMPLEADO"
     val TIPO_ENTRENADOR = "ENTRENADOR"
 
+    const val AFORO_ILIMITADO = -1
+
     // Default messages
     val HEADER_ERROR_MESSAGE = "errorMessage"
 
@@ -40,8 +42,27 @@ object Constantes {
         empresa = EMPRESA_EJEMPLO_1
     )
 
-    val ENTRENADOR_EJEMPLO_1 = Entrenador(
+    val EMPLEADO_EJEMPLO_2 = Empleado(
         id = 2,
+        correo = "jose@landazuri.es",
+        contrasena = "1234",
+        nombre = "Jose Julio",
+        apellido1 = "Landázuri",
+        apellido2 = "Diaz",
+        fechaNacimiento = LocalDateTime.of(1998, 11, 11, 0, 0),
+        fechaInserccion = LocalDateTime.now(),
+        isActivo = true,
+        imagen = null,
+        cargo = "Programador full stack android",
+        peso = 60.0f,
+        altura = 1.70f,
+        isDeporteFrecuente = false,
+        isFumador = false,
+        empresa = EMPRESA_EJEMPLO_1
+    )
+
+    val ENTRENADOR_EJEMPLO_1 = Entrenador(
+        id = 3,
         correo = "david@david.es",
         contrasena = "1234",
         nombre = "David",
@@ -58,83 +79,37 @@ object Constantes {
     )
 
     val ENTRENADOR_EJEMPLO_2 = Entrenador(
-        id = 3,
-        correo = "jose@jose.es",
+        id = 4,
+        correo = "marcos@marcos.es",
         contrasena = "1234",
-        nombre = "Joseluis",
-        apellido1 = "Rodriguez",
-        apellido2 = "Zapatero",
+        nombre = "Marcos",
+        apellido1 = "Martinez",
+        apellido2 = "Rus",
         fechaNacimiento = LocalDateTime.of(2000, 1, 1, 0, 0),
         fechaInserccion = LocalDateTime.now(),
         isActivo = true,
         imagen = null,
         empresaAsignada = EMPRESA_EJEMPLO_1,
-        estudios = "Ingenieria en balones de furbo",
+        estudios = "Deportista de élite.",
         sueldo = 2000.0f,
         fechaAlta = LocalDateTime.now()
     )
 
-    val SESION_EJEMPLO_1 = Sesion(
-        id = 1,
-        titulo = "Sesión de prueba 1",
-        subtitulo = "Es una sesion de prueba",
-        descripcion = "Es una sesion de prueba Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Done",
+    val ENTRENADOR_EJEMPLO_3 = Entrenador(
+        id = 5,
+        correo = "jose@jose.es",
+        contrasena = "1234",
+        nombre = "Jose",
+        apellido1 = "Dominguez",
+        apellido2 = "Rodriguez",
+        fechaNacimiento = LocalDateTime.of(2000, 1, 1, 0, 0),
         fechaInserccion = LocalDateTime.now(),
-        fechaSesion = LocalDateTime.now().plusHours(1),
-        aforoMaximo = 20,
+        isActivo = true,
         imagen = null,
-        creador = ENTRENADOR_EJEMPLO_1,
-        entrenadores = mutableListOf(ENTRENADOR_EJEMPLO_1),
-        empresa = EMPRESA_EJEMPLO_1
-    )
-
-    val SESION_EJEMPLO_2 = Sesion(
-        id = 2,
-        titulo = "Sesión de prueba 2",
-        subtitulo = "Es una sesion de prueba",
-        descripcion = "Es una sesion de prueba Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Done",
-        fechaInserccion = LocalDateTime.now(),
-        fechaSesion = LocalDateTime.now().plusHours(6),
-        aforoMaximo = 10,
-        imagen = null,
-        creador = ENTRENADOR_EJEMPLO_1,
-        entrenadores = mutableListOf(ENTRENADOR_EJEMPLO_1, ENTRENADOR_EJEMPLO_2),
-        empresa = EMPRESA_EJEMPLO_1
-    )
-
-    val SESION_EJEMPLO_3 = Sesion(
-        id = 3,
-        titulo = "Sesión de prueba 3",
-        subtitulo = "Es una sesion de prueba",
-        descripcion = "Es una sesion de prueba Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nisl nunc sit amet nisl. Done",
-        fechaInserccion = LocalDateTime.now(),
-        fechaSesion = LocalDateTime.now().plusHours(2),
-        aforoMaximo = 40,
-        imagen = null,
-        creador = ENTRENADOR_EJEMPLO_2,
-        entrenadores = mutableListOf(ENTRENADOR_EJEMPLO_2),
-        empresa = EMPRESA_EJEMPLO_1
-    )
-
-    val EMPLEADO_INSCRITO_SESION_1_EJEMPLO = EmpleadoInscribeSesion(
-        id = 1,
-        empleadoInscrito = EMPLEADO_EJEMPLO_1,
-        sesionALaQueSeInscribe = SESION_EJEMPLO_1,
-        fechaInscripcion = LocalDateTime.now()
-    )
-
-    val EMPLEADO_INSCRITO_SESION_2_EJEMPLO = EmpleadoInscribeSesion(
-        id = 2,
-        empleadoInscrito = EMPLEADO_EJEMPLO_1,
-        sesionALaQueSeInscribe = SESION_EJEMPLO_2,
-        fechaInscripcion = LocalDateTime.now()
-    )
-
-    val EMPLEADO_INSCRITO_SESION_3_EJEMPLO = EmpleadoInscribeSesion(
-        id = 3,
-        empleadoInscrito = EMPLEADO_EJEMPLO_1,
-        sesionALaQueSeInscribe = SESION_EJEMPLO_3,
-        fechaInscripcion = LocalDateTime.now()
+        empresaAsignada = EMPRESA_EJEMPLO_1,
+        estudios = "Deportista de élite.",
+        sueldo = 2000.0f,
+        fechaAlta = LocalDateTime.now()
     )
 
 }
