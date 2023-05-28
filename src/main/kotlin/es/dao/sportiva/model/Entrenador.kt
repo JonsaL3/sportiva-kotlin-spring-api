@@ -45,4 +45,22 @@ data class Entrenador(
         this.empresaAsignada = empresaAsignada
     }
 
+    constructor(
+        entrenador: Entrenador
+    ) : this(entrenador.estudios, entrenador.sueldo, entrenador.fechaAlta) {
+        this.id = entrenador.id
+        this.correo = entrenador.correo
+        this.contrasena = entrenador.contrasena
+        this.nombre = entrenador.nombre
+        this.apellido1 = entrenador.apellido1
+        this.apellido2 = entrenador.apellido2
+        this.fechaNacimiento = entrenador.fechaNacimiento
+        this.fechaInserccion = entrenador.fechaInserccion
+        this.isActivo = entrenador.isActivo
+        this.imagen = entrenador.imagen
+
+        this.empresaAsignada = entrenador.empresaAsignada.copy()
+    }
+
+
 }

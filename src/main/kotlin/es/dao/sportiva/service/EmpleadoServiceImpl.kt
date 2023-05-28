@@ -4,6 +4,7 @@ import es.dao.sportiva.model.Empleado
 import es.dao.sportiva.repository.EmpleadoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class EmpleadoServiceImpl: IEmpleadoService {
@@ -71,6 +72,11 @@ class EmpleadoServiceImpl: IEmpleadoService {
             println("\nError al buscar empleado por correo: ${e.message}\n")
         }
         return empleado
+    }
+
+    @Transactional
+    override fun updateImagenById(id: Int, imagen: String): Int {
+        return repo.updateImagenById(id, imagen)
     }
 
 }

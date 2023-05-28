@@ -6,6 +6,7 @@ import es.dao.sportiva.model.Entrenador
 import es.dao.sportiva.repository.EntrenadorRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class EntrenadorServiceImpl: IEntrenadorService {
@@ -85,4 +86,8 @@ class EntrenadorServiceImpl: IEntrenadorService {
         return lista
     }
 
+    @Transactional
+    override fun updateImagenById(id: Int, imagen: String): Int {
+        return repo.updateImagenById(id, imagen)
+    }
 }

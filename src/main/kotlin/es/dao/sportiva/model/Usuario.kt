@@ -1,5 +1,6 @@
 package es.dao.sportiva.model
 
+import com.fasterxml.jackson.annotation.JsonSubTypes
 import es.dao.sportiva.utils.Constantes
 import java.io.Serializable
 import java.time.LocalDateTime
